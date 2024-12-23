@@ -11,6 +11,7 @@ import click
 
 DELETE_STATUS_SUCCESS = "OK"
 
+
 @click.command()
 @click.argument("days", type=int, required=True)
 @click.option(
