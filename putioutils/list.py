@@ -12,7 +12,7 @@ import pytz
 def run():
     """Fetch and display Put.io files in a formatted table with file sizes and creation times."""
     load_dotenv()
-    oauth_token = os.getenv("OAUTH_TOKEN")
+    oauth_token: str = os.getenv("OAUTH_TOKEN", "")
 
     client = putiopy.Client(oauth_token)
 
@@ -23,18 +23,18 @@ def run():
 
     for file in files:
         now = datetime.now(pytz.timezone("UTC"))
-        created_at = file.created_at.replace(tzinfo=pytz.timezone("UTC"))
+        created_at = file.created_at.replace(tzinfo=pytz.timezone("UTC"))  # type: ignore
 
         table.add_row(
             [
                 file.name,
-                humanize.naturalsize(file.size, binary=True),
+                humanize.naturalsize(file.size, binary=True),  # type: ignore
                 humanize.naturaltime(now - created_at),
             ]
         )
 
     print(table)
 
+
 if __name__ == "__main__":
     run()
-
