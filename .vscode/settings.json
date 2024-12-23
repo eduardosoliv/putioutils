@@ -3,5 +3,10 @@
         "/Users/eduardooliveira/.local/bin/poetry",
         "run",
         "pylint"
-    ]
+    ],
+    "python.analysis.typeCheckingMode": "basic",
+    "[python]": {
+        "editor.defaultFormatter": "mikoz.black-py",
+        "editor.formatOnSave": false
+    }
 }
