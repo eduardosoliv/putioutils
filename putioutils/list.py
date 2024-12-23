@@ -23,19 +23,13 @@ def run():
     table.field_names = ["Name", "Size", "Created at"]
 
     for file in files:
-        size_unit = "MB"
-        size = file.size / 1024 / 1024
-        if size > 1024:
-            size = size / 1024
-            size_unit = "GB"
-
         now = datetime.now(pytz.timezone("UTC"))
         created_at = file.created_at.replace(tzinfo=pytz.timezone("UTC"))
 
         table.add_row(
             [
                 file.name,
-                f"{size:.1f} {size_unit}",
+                humanize.naturalsize(file.size, binary=True),
                 humanize.naturaltime(now - created_at),
             ]
         )
