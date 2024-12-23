@@ -19,9 +19,6 @@ DELETE_STATUS_SUCCESS = "OK"
 )
 def run(days: int, dry_run: bool = False):
     """Delete old files from Put.io account."""
-    if dry_run:
-        print("\nINFO: Dry run mode enabled. No files will be deleted.")
-
     load_dotenv()
     oauth_token: str = os.getenv("OAUTH_TOKEN", "")
 
@@ -44,7 +41,7 @@ def run(days: int, dry_run: bool = False):
             else:
                 result = client.File.delete(file)
                 action = (
-                    "DONE" if result["status"] == DELETE_STATUS_SUCCESS else "FAILED"
+                    "DELETED" if result["status"] == DELETE_STATUS_SUCCESS else "FAILED"
                 )
 
         table.add_row(
