@@ -8,6 +8,7 @@ import putiopy
 import humanize
 import pytz
 
+
 def run():
     """Fetch and display Put.io files in a formatted table with file sizes and creation times."""
     load_dotenv()
