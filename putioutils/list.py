@@ -1,20 +1,42 @@
+"""List files from Put.io account in a formatted table with size and creation time."""
+
 import os
-import sys
+from datetime import datetime
 from dotenv import load_dotenv
-from pprint import pprint
-from var_dump import var_dump
+from prettytable import PrettyTable
 import putiopy
+import humanize
+import pytz
 
 def run():
+    """Fetch and display Put.io files in a formatted table with file sizes and creation times."""
     load_dotenv()
-    client_id = os.getenv("CLIENT_ID")
-    client_secret = os.getenv("CLIENT_SECRET")
     oauth_token = os.getenv("OAUTH_TOKEN")
 
-    helper = putiopy.AuthHelper(client_id, client_secret, None, type='token')
     client = putiopy.Client(oauth_token)
 
     # list files
-    files = client.File.list(sort_by='DATE_DESC')
+    files = client.File.list(sort_by="DATE_DESC")
 
-    pprint(files)
+    table = PrettyTable()
+    table.field_names = ["Name", "Size", "Created at"]
+
+    for file in files:
+        size_unit = "MB"
+        size = file.size / 1024 / 1024
+        if size > 1024:
+            size = size / 1024
+            size_unit = "GB"
+
+        now = datetime.now(pytz.timezone("UTC"))
+        created_at = file.created_at.replace(tzinfo=pytz.timezone("UTC"))
+
+        table.add_row(
+            [
+                file.name,
+                f"{size:.1f} {size_unit}",
+                humanize.naturaltime(now - created_at),
+            ]
+        )
+
+    print(table)
