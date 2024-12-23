@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "putioutils"
+version = "0.1.0"
+description = ""
+authors = ["Eduardo Oliveira <me@eduardooliveira.net>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+var-dump = "^1.2"
+setuptools = "^75.6.0"
+putio-py = "^8.7.0"
+python-dotenv = "^1.0.1"
+
+[tool.poetry.scripts]
+putio-list = "putioutils.list:run"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
