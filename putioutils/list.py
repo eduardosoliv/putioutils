@@ -16,7 +16,6 @@ def run():
 
     client = putiopy.Client(oauth_token)
 
-    # list files
     files = client.File.list(sort_by="DATE_DESC")
 
     table = PrettyTable()
@@ -35,3 +34,7 @@ def run():
         )
 
     print(table)
+
+if __name__ == "__main__":
+    run()
+

@@ -1,0 +1,7 @@
+{
+    "pylint.path": [
+        "/Users/eduardooliveira/.local/bin/poetry",
+        "run",
+        "pylint"
+    ]
+}
